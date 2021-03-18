@@ -1,0 +1,18 @@
+{
+  "main/tabs/sofa": {
+    "isFragment": false,
+    "asStarter": false,
+    "needLogin": false,
+    "pageUrl": "main/tabs/sofa",
+    "className": "cn.xdf.mine_ppjoke.ui.notifications.NotificationsFragment",
+    "id": 286706482
+  },
+  "main/tabs/home": {
+    "isFragment": false,
+    "asStarter": true,
+    "needLogin": false,
+    "pageUrl": "main/tabs/home",
+    "className": "cn.xdf.mine_ppjoke.ui.home.HomeFragment",
+    "id": 1410612834
+  }
+}

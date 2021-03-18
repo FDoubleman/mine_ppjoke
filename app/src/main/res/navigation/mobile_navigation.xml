@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/navigation_home">
+
+    <fragment
+        android:id="@+id/navigation_home"
+        android:name="cn.xdf.mine_ppjoke.ui.home.HomeFragment"
+        android:label="@string/title_home"
+        tools:layout="@layout/fragment_home">
+        <argument
+            android:name="type"
+            app:argType="integer" />
+        <action
+            android:id="@+id/id_action"
+            app:destination="@id/navigation_dashboard"
+            app:enterAnim="@anim/fragment_close_enter"
+            app:exitAnim="@anim/fragment_close_exit" />
+        <deepLink
+            android:id="@+id/deepLink"
+            app:uri="www.xdf.ppjoke" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_dashboard"
+        android:name="cn.xdf.mine_ppjoke.ui.dashboard.DashboardFragment"
+        android:label="@string/title_dashboard"
+        tools:layout="@layout/fragment_dashboard" />
+
+    <fragment
+        android:id="@+id/navigation_notifications"
+        android:name="cn.xdf.mine_ppjoke.ui.notifications.NotificationsFragment"
+        android:label="@string/title_notifications"
+        tools:layout="@layout/fragment_notifications" />
+    <fragment
+        android:id="@+id/actionsFragment"
+        android:name="cn.xdf.mine_ppjoke.ActionsFragment"
+        android:label="fragment_actions"
+        tools:layout="@layout/fragment_actions" />
+</navigation>
