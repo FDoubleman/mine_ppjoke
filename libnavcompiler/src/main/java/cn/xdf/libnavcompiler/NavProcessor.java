@@ -194,13 +194,13 @@ public class NavProcessor extends AbstractProcessor {
                 pageUrl = dest.pageUrl();
                 asStarter = dest.asStarter();
                 needLogin = dest.needLogin();
-                isFragment = false;
+                isFragment = true;
             } else if (annotation instanceof ActivityDestination) {
                 ActivityDestination dest = (ActivityDestination) annotation;
                 pageUrl = dest.pageUrl();
                 asStarter = dest.asStarter();
                 needLogin = dest.needLogin();
-                isFragment = true;
+                isFragment = false;
             }
 
             if (destMap.containsKey(pageUrl)) {
