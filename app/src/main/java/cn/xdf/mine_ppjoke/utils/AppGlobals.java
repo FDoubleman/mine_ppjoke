@@ -1,5 +1,6 @@
 package cn.xdf.mine_ppjoke.utils;
 
+import android.annotation.SuppressLint;
 import android.app.Application;
 
 import java.lang.reflect.InvocationTargetException;
@@ -13,6 +14,7 @@ public class AppGlobals {
 
     private static Application sApplication;
 
+    @SuppressLint("PrivateApi")
     public static Application getApplication() {
         if (sApplication != null) {
             return sApplication;
@@ -20,14 +22,8 @@ public class AppGlobals {
         try {
             sApplication = (Application) Class.forName("android.app.ActivityThread")
                     .getMethod("currentApplication")
-                    .invoke(null, null);
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        } catch (InvocationTargetException e) {
-            e.printStackTrace();
-        } catch (NoSuchMethodException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
+                    .invoke(null, (Object[]) null);
+        } catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException | ClassNotFoundException e) {
             e.printStackTrace();
         }
 

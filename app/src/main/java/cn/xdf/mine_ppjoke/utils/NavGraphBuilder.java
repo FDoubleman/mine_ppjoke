@@ -15,6 +15,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 
 import cn.xdf.mine_ppjoke.model.Destination;
+import cn.xdf.mine_ppjoke.ui.FixFragmentNavigator;
 
 /**
  * author:fumm
@@ -24,11 +25,14 @@ import cn.xdf.mine_ppjoke.model.Destination;
 public class NavGraphBuilder {
 
 
-    public static void build(NavController controller) {
+    public static void build(NavController controller,FragmentActivity activity,int containId) {
         NavigatorProvider provider = controller.getNavigatorProvider();
         NavGraph navGraph = new NavGraph(new NavGraphNavigator(provider));
 
-        FragmentNavigator fragmentNavigator = provider.getNavigator(FragmentNavigator.class);
+        // FragmentNavigator fragmentNavigator = provider.getNavigator(FragmentNavigator.class);
+
+        FixFragmentNavigator fragmentNavigator = new FixFragmentNavigator(activity,activity.getSupportFragmentManager(),containId);
+        provider.addNavigator(fragmentNavigator);
 
         ActivityNavigator activityNavigator = provider.getNavigator(ActivityNavigator.class);
 

@@ -16,6 +16,7 @@ import cn.xdf.mine_ppjoke.utils.NavGraphBuilder;
 
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
     private NavController navController;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,8 +25,10 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
 
         Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment);
+
+
         navController = NavHostFragment.findNavController(fragment);
-        NavGraphBuilder.build(navController);
+        NavGraphBuilder.build(navController, this, fragment.getId());
 
         navView.setOnNavigationItemSelectedListener(this);
     }

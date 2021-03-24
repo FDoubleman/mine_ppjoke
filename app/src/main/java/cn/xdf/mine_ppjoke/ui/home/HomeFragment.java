@@ -1,6 +1,7 @@
 package cn.xdf.mine_ppjoke.ui.home;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,5 +34,12 @@ public class HomeFragment extends Fragment {
             }
         });
         return root;
+    }
+
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        Log.d("HomeFragment","fragment onViewCreated");
     }
 }
