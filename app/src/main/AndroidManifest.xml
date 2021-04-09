@@ -2,13 +2,15 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="cn.xdf.mine_ppjoke">
 
+    <!--    usesCleartextTraffic 允许铭文请求-->
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Mine_ppjoke">
+        android:theme="@style/Theme.Mine_ppjoke"
+        android:usesCleartextTraffic="true">
 
         <activity android:name=".MainActivity">
             <intent-filter>

@@ -1,8 +1,12 @@
 package cn.xdf.mine_ppjoke;
 
 import android.os.Bundle;
+import android.text.Spannable;
+import android.text.SpannableString;
 import android.text.TextUtils;
+import android.text.style.BackgroundColorSpan;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -22,7 +26,6 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         BottomNavigationView navView = findViewById(R.id.nav_view);
-
 
         Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment);
 
