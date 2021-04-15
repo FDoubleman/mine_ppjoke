@@ -11,6 +11,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.HashMap;
 
+import cn.xdf.libcommon.AppGlobals;
 import cn.xdf.mine_ppjoke.model.BottomBar;
 import cn.xdf.mine_ppjoke.model.Destination;
 

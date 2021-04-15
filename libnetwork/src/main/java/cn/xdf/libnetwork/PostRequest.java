@@ -9,7 +9,7 @@ import okhttp3.FormBody;
  * Date : 2021/ 04/ 08 2:02 PM
  * Dec : post请求
  **/
-class PostRequest<T> extends Request<T, PostRequest> {
+public class PostRequest<T> extends Request<T, PostRequest> {
     public PostRequest(String mUrl) {
         super(mUrl);
     }

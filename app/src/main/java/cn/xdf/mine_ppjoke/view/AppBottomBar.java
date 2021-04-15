@@ -8,7 +8,6 @@ import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.view.MenuItem;
-import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -20,11 +19,12 @@ import com.google.android.material.bottomnavigation.LabelVisibilityMode;
 
 import java.util.List;
 
+import cn.xdf.libcommon.AppGlobals;
 import cn.xdf.mine_ppjoke.R;
 import cn.xdf.mine_ppjoke.model.BottomBar;
 import cn.xdf.mine_ppjoke.model.Destination;
 import cn.xdf.mine_ppjoke.utils.AppConfig;
-import cn.xdf.mine_ppjoke.utils.AppGlobals;
+
 
 /**
  * author:fumm

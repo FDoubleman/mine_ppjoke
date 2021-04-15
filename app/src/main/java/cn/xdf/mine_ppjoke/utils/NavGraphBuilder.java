@@ -1,6 +1,5 @@
 package cn.xdf.mine_ppjoke.utils;
 
-import android.content.ActivityNotFoundException;
 import android.content.ComponentName;
 
 import androidx.fragment.app.FragmentActivity;
@@ -14,6 +13,7 @@ import androidx.navigation.fragment.FragmentNavigator;
 import java.util.HashMap;
 import java.util.Iterator;
 
+import cn.xdf.libcommon.AppGlobals;
 import cn.xdf.mine_ppjoke.model.Destination;
 import cn.xdf.mine_ppjoke.ui.FixFragmentNavigator;
 

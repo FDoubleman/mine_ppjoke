@@ -5,7 +5,7 @@ package cn.xdf.libnetwork;
  * Date : 2021/ 04/ 08 11:21 AM
  * Dec : get 请求
  **/
-class GetRequest<T> extends Request<T,GetRequest>{
+public class GetRequest<T> extends Request<T,GetRequest>{
     public GetRequest(String mUrl) {
         super(mUrl);
     }

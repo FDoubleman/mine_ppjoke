@@ -1,4 +1,4 @@
-package cn.xdf.mine_ppjoke.utils;
+package cn.xdf.libcommon;
 
 import android.annotation.SuppressLint;
 import android.app.Application;

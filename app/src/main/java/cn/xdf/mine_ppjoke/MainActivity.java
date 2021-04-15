@@ -16,6 +16,7 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 
+import cn.xdf.libnetwork.GetRequest;
 import cn.xdf.mine_ppjoke.utils.NavGraphBuilder;
 
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
@@ -34,6 +35,9 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         NavGraphBuilder.build(navController, this, fragment.getId());
 
         navView.setOnNavigationItemSelectedListener(this);
+
+        GetRequest getRequest = new GetRequest("www.baidu.com");
+        getRequest.execute();
     }
 
     @Override

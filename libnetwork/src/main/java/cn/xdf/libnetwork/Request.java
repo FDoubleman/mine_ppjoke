@@ -1,12 +1,16 @@
 package cn.xdf.libnetwork;
 
+import android.annotation.SuppressLint;
+import android.text.TextUtils;
 import android.util.Log;
 
 import androidx.annotation.IntDef;
+import androidx.arch.core.executor.ArchTaskExecutor;
 
 import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.reflect.Field;
@@ -15,6 +19,8 @@ import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.Map;
 
+import cn.xdf.libnetwork.cache.Cache;
+import cn.xdf.libnetwork.cache.CacheManager;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.OkHttpClient;
@@ -44,6 +50,7 @@ public abstract class Request<T, R extends Request> {
     private int mCacheStrategy = NET_ONLY;
     private Type mType;
     private Class mClaz;
+    private String cacheKey;
 
     // 使用注解 标记归纳类型
     @IntDef({CACHE_ONLY, CACHE_FIRST, NET_CACHE, NET_ONLY})
@@ -115,8 +122,54 @@ public abstract class Request<T, R extends Request> {
         return (R) this;
     }
 
-    public void execute(JsonCallback callback) {
+    public R cacheKey(String key) {
+        this.cacheKey = key;
+        return (R) this;
+    }
 
+    /**
+     * 同步请求
+     *
+     * @return
+     */
+    public ApiResponse<T> execute() {
+        if (mCacheStrategy == NET_ONLY) {
+            return readCache();
+
+        }
+        ApiResponse<T> result = null;
+        try {
+            Response response = getCall().execute();
+            result = parseResponse(response, null);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            if (result == null) {
+                result = new ApiResponse<>();
+                result.message = e.getMessage();
+            }
+        }
+        return result;
+    }
+
+    /**
+     * 异步请求
+     *
+     * @param callback
+     */
+    @SuppressLint("RestrictedApi")
+    public void execute(JsonCallback callback) {
+        if (mCacheStrategy != NET_ONLY) {
+            ArchTaskExecutor.getIOThreadExecutor().execute(new Runnable() {
+                @Override
+                public void run() {
+                    ApiResponse<T> response = readCache();
+                    if (callback != null && response.body != null) {
+                        callback.onSuccess(response);
+                    }
+                }
+            });
+        }
 
         getCall().enqueue(new Callback() {
             @Override
@@ -136,6 +189,17 @@ public abstract class Request<T, R extends Request> {
                 }
             }
         });
+    }
+
+    private ApiResponse<T> readCache() {
+        ApiResponse<T> response = new ApiResponse<>();
+        String key = TextUtils.isEmpty(cacheKey) ? generateCacheKey() : cacheKey;
+        Object cache = CacheManager.getCache(key);
+        response.status = 304;
+        response.message = "缓存获取成功";
+        response.success = true;
+        response.body = (T) cache;
+        return response;
     }
 
     private ApiResponse<T> parseResponse(Response response, JsonCallback callback) {
@@ -172,6 +236,21 @@ public abstract class Request<T, R extends Request> {
         result.status = status;
         result.message = message;
 
+        if (mCacheStrategy != NET_ONLY && result.success && result.body != null
+                && result.body instanceof Serializable) {
+            saveCache(result.body);
+        }
         return result;
     }
+
+    private void saveCache(T body) {
+        String key = TextUtils.isEmpty(cacheKey) ? generateCacheKey() : cacheKey;
+        CacheManager.save(key, body);
+    }
+
+    private String generateCacheKey() {
+        String cacheKey = UrlCreator.createUrlFromParams(mUrl, params);
+        return cacheKey;
+    }
+
 }
