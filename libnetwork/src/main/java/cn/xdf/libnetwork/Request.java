@@ -170,25 +170,27 @@ public abstract class Request<T, R extends Request> {
                 }
             });
         }
-
-        getCall().enqueue(new Callback() {
-            @Override
-            public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                ApiResponse<T> result = new ApiResponse<>();
-                result.message = e.getMessage();
-                callback.onError(result);
-            }
-
-            @Override
-            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
-                ApiResponse<T> result = parseResponse(response, callback);
-                if (result.success) {
-                    callback.onSuccess(result);
-                } else {
+        if (mCacheStrategy != CACHE_ONLY) {
+            getCall().enqueue(new Callback() {
+                @Override
+                public void onFailure(@NotNull Call call, @NotNull IOException e) {
+                    ApiResponse<T> result = new ApiResponse<>();
+                    result.message = e.getMessage();
                     callback.onError(result);
                 }
-            }
-        });
+
+                @Override
+                public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+                    ApiResponse<T> result = parseResponse(response, callback);
+                    if (result.success) {
+                        callback.onSuccess(result);
+                    } else {
+                        callback.onError(result);
+                    }
+                }
+            });
+        }
+
     }
 
     private ApiResponse<T> readCache() {

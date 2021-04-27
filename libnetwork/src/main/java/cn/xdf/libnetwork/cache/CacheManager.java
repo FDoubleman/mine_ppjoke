@@ -28,7 +28,7 @@ public class CacheManager {
     public static Object getCache(String key) {
         Cache cache = CacheDatabase.get().getCache().getCache(key);
         if (cache != null && cache.data != null) {
-            return toByteArray(cache.data);
+            return toObject(cache.data);
 
         }
         return null;
